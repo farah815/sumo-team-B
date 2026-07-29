@@ -1,0 +1,400 @@
+<?xml version="1.0"?>
+<robot name="sumo_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <material name="grey">
+        <color rgba="0.6 0.6 0.6 1.0"/>
+    </material>
+    <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+    </material>
+
+    <link name="base_link"/>
+
+    <joint name="base_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="body"/>
+        <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+    </joint>
+
+    <link name="body">
+        <visual>
+            <geometry>
+             <mesh filename="file:///home/habiba2335/ros2_ws/install/robo/share/robo/meshes/STLs/bodyhhh.STL"/>
+            </geometry>
+            <material name="grey"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0.015 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="file:///home/habiba2335/ros2_ws/install/robo/share/robo/meshes/STLs/bodyhhh.STL"/>
+            </geometry>
+        </collision>
+      <inertial>
+         <origin xyz="0.00 0.02 0.03" rpy="0 0 0"/>
+         <mass value="10.26"/>
+         <inertia ixx="0.043" ixy="0.0" ixz="0.0" iyy="0.068" iyz="0.0" izz="0.043"/>
+      </inertial>
+    </link>
+
+    <link name="cutting_wheel_connector">
+        <visual>
+            <origin xyz="0 0 -0.02" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.015" length="0.04"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <inertial>
+            <mass value="0.001"/>
+            <inertia ixx="0.000001" ixy="0.0" ixz="0.0" iyy="0.000001" iyz="0.0" izz="0.000001"/>
+        </inertial>
+    </link>
+
+    <joint name="cutting_wheel_connector_joint" type="fixed">
+        <parent link="body"/>
+        <child link="cutting_wheel_connector"/>
+        <origin xyz="0.003 0.08986 0.09845" rpy="-1.0472 0 0"/>
+    </joint>
+
+    <link name="cutting_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+            <mesh filename="file:///home/habiba2335/ros2_ws/install/robo/share/robo/meshes/STLs/Cutting_wheelfffhh.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.135" length="0.004"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0.00294" rpy="0 0 0"/>
+            <mass value="0.17182"/>
+            <inertia ixx="0.000474" ixy="0.0" ixz="0.0" iyy="0.000474" iyz="0.0" izz="0.000947"/>
+        </inertial>
+    </link>
+    
+    <joint name="cutting_wheel_joint" type="continuous">
+        <parent link="body"/> 
+        <child link="cutting_wheel"/>
+        <origin xyz="0.003 0.08986 0.09845" rpy="-1.0472 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="20.0" velocity="100.0"/>
+    </joint>
+
+    <link name="right_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="file:///home/habiba2335/ros2_ws/install/robo/share/robo/meshes/STLs/Wheelh.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+            <geometry>
+                <cylinder radius="0.0425" length="0.038"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.10621"/>
+            <inertia ixx="0.000108" ixy="0.0" ixz="0.0" iyy="0.000061" iyz="0.0" izz="0.000061"/>
+        </inertial>
+    </link>
+
+    <joint name="right_wheel_joint" type="continuous">
+        <parent link="body"/> 
+        <child link="right_wheel"/>
+        <origin xyz="0.104029 0.031999 -0.063999" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="10.0" velocity="50.0"/>
+    </joint>
+
+    <link name="left_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="file:///home/habiba2335/ros2_ws/install/robo/share/robo/meshes/STLs/Wheelh.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+            <geometry>
+                <cylinder radius="0.0425" length="0.038"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.10621"/>
+            <inertia ixx="0.000108" ixy="0.0" ixz="0.0" iyy="0.000061" iyz="0.0" izz="0.000061"/>
+        </inertial>
+    </link>
+
+    <joint name="left_wheel_joint" type="continuous">
+        <parent link="body"/> 
+        <child link="left_wheel"/>
+        <origin xyz="-0.104029 0.031999 -0.063999" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="10.0" velocity="50.0"/>
+    </joint>
+
+    <link name="camera_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="file:///home/habiba2335/ros2_ws/install/robo/share/robo/meshes/STLs/WebCamhh.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.077 0.023 0.029"/>
+            </geometry>
+        </collision>
+    </link>
+    
+    <joint name="camera_joint" type="fixed">
+        <parent link="body"/>
+        <child link="camera_link"/>
+        <origin xyz="0.000210 0.170350 -0.169" rpy="-0.523599 -1.57 -1.0472"/>
+    </joint>
+
+    <link name="camera_optical_link"/>
+
+    <joint name="camera_optical_joint" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera_optical_link"/>
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+  </joint>
+
+    <link name="lidar_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.03 0.03 0.03"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.01 0.01 0.01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+        </inertial>
+    </link>
+
+      <joint name="lidar_joint" type="fixed">
+        <parent link="body"/>
+        <child link="lidar_link"/>
+        <origin xyz="0.000210 0.20 -0.174" rpy="1.5708 0 0"/>
+      </joint>
+
+    <link name="caster_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <sphere radius="0.015"/> 
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <sphere radius="0.015"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.05"/>
+            <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
+        </inertial>
+    </link>
+
+    <joint name="caster_joint" type="fixed">
+        <parent link="body"/>
+        <child link="caster_link"/>
+        <origin xyz="0 0.0045 0.08" rpy="0 0 0"/>
+    </joint>
+
+    <gazebo reference="caster_link">
+        <mu1 value="0.0"/>
+        <mu2 value="0.0"/>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="cutting_wheel">
+        <mu1 value="0.0"/>
+        <mu2 value="0.0"/>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <link name="imu_link">
+    </link>
+
+    <joint name="imu_joint" type="fixed">
+        <parent link="body"/>
+        <child link="imu_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <gazebo reference="right_wheel">
+        <mu1 value="1.0"/>
+        <mu2 value="1.0"/>
+        <kp value="1000000.0"/> 
+        <kd value="100.0"/>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="left_wheel">
+        <mu1 value="1.0"/>
+        <mu2 value="1.0"/>
+        <kp value="1000000.0"/>
+        <kd value="100.0"/>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+
+
+  <!-- ============================= -->
+  <!-- IMU                           -->
+  <!-- ============================= -->
+  <gazebo reference="imu_link">
+
+    <sensor name="imu_sensor" type="imu">
+
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+
+      <visualize>true</visualize>
+
+      <topic>imu</topic>
+
+    </sensor>
+
+  </gazebo>
+
+
+ <!-- ============================= -->
+  <!-- LiDAR                         -->
+  <!-- ============================= -->
+  <gazebo reference="lidar_link">
+
+    <sensor name="lidar_sensor" type="gpu_lidar">
+
+      <always_on>true</always_on>
+      <update_rate>10</update_rate>
+
+      <visualize>true</visualize>
+
+      <topic>scan</topic>
+
+      <gz_frame_id>laser_frame</gz_frame_id>
+
+      <ray>
+
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14</min_angle>
+            <max_angle>3.14</max_angle>
+          </horizontal>
+        </scan>
+
+        <range>
+          <min>0.12</min>
+          <max>10.0</max>
+          <resolution>0.01</resolution>
+        </range>
+
+      </ray>
+
+    </sensor>
+
+  </gazebo>
+
+  <gazebo reference="camera_link">
+    <sensor name="camera_sensor" type="camera">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <topic>camera/image_raw</topic>
+      <pose>0 0 0 0 0 0</pose>
+      <camera>
+        <horizontal_fov>1.89</horizontal_fov>
+        <image>
+          <format>R8G8B8</format>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>8.0</far>
+        </clip>
+      </camera>
+    </sensor> 
+  </gazebo>
+
+
+  <!-- ============================= -->
+  <!-- Plugins                       -->
+  <!-- ============================= -->
+
+  <gazebo>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+  </gazebo>
+  
+   <gazebo>
+   <plugin
+        filename="gz-sim-diff-drive-system"
+        name="gz::sim::systems::DiffDrive">
+
+      <left_joint>right_wheel_joint</left_joint>
+      <right_joint>left_wheel_joint</right_joint>
+
+      <wheel_separation>0.208058</wheel_separation>
+      <wheel_radius>0.0425</wheel_radius>
+
+      <topic>cmd_vel</topic>
+      <odom_topic>odom</odom_topic>
+
+      <frame_id>odom</frame_id>
+      <child_frame_id>body</child_frame_id>
+
+      <odom_publish_frequency>30</odom_publish_frequency>
+
+    </plugin>
+</gazebo>
+
+<gazebo>
+  <plugin
+      filename="gz-sim-joint-state-publisher-system"
+      name="gz::sim::systems::JointStatePublisher">
+
+    <joint_name>left_wheel_joint</joint_name>
+    <joint_name>right_wheel_joint</joint_name>
+    <joint_name>cutting_wheel_joint</joint_name> 
+
+  </plugin>
+</gazebo>
+
+<gazebo>
+  <plugin
+      filename="gz-sim-joint-controller-system"
+      name="gz::sim::systems::JointController">
+    <joint_name>cutting_wheel_joint</joint_name>
+    <initial_velocity>0.0</initial_velocity>
+  </plugin>
+</gazebo>
+
+</robot>
